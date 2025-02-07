@@ -1,4 +1,5 @@
-SYNERA: Ushering in a New Era of AI Synergy
+**SYNERA: Ushering in a New Era of AI Synergy
+**
 ![photo_2025-02-04_23-33-24](https://github.com/user-attachments/assets/6a930bf4-8056-46c8-b03b-c3d65444a0bb)
 
 Introduction:
