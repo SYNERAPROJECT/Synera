@@ -1,0 +1,85 @@
+const SyneraAI = require('../src/core/synera_ai');
+const Logger = require('../src/utils/logger'); // Import logging utility
+
+describe('SyneraAI - AI-Driven Blockchain Automation', () => {
+    let syneraAI;
+
+    // Initialize a fresh instance of SyneraAI before all tests
+    beforeAll(() => {
+        Logger.info('[TEST] Initializing SyneraAI for testing...');
+        syneraAI = new SyneraAI();
+    });
+
+    /**
+     * Ensures SyneraAI can generate a valid AI-enhanced response
+     * for a given blockchain-related query.
+     */
+    test('SyneraAI should return a valid blockchain response', async () => {
+        const testQuery = 'Optimize my staking strategy';
+
+        try {
+            Logger.info(`[TEST] Sending query to SyneraAI: "${testQuery}"`);
+            
+            const response = await syneraAI.processQuery(testQuery);
+            
+            expect(response).toBeDefined();
+            expect(typeof response).toBe('string');
+            expect(response.length).toBeGreaterThan(0);
+
+            Logger.info(`[TEST] SyneraAI returned a response: "${response}"`);
+        } catch (error) {
+            Logger.error(`[TEST] SyneraAI failed to return a response: ${error}`);
+            throw error;
+        }
+    });
+
+    /**
+     * Tests SyneraAI's handling of an empty query,
+     * ensuring graceful degradation without crashes.
+     */
+    test('SyneraAI should handle empty queries gracefully', async () => {
+        const emptyQuery = '';
+
+        try {
+            Logger.info('[TEST] Sending empty query to SyneraAI');
+            
+            const response = await syneraAI.processQuery(emptyQuery);
+            
+            expect(response).toBeDefined();
+            expect(typeof response).toBe('string');
+            expect(response.length).toBeGreaterThan(0);
+
+            Logger.info(`[TEST] SyneraAI handled empty query correctly: "${response}"`);
+        } catch (error) {
+            Logger.error(`[TEST] SyneraAI failed with empty query: ${error}`);
+            throw error;
+        }
+    });
+
+    /**
+     * Measures SyneraAI's response time to ensure real-time efficiency.
+     * Fails if response time exceeds the predefined threshold.
+     */
+    test('SyneraAI should process requests within acceptable time limit', async () => {
+        const performanceQuery = 'Analyze latest blockchain trends';
+        const maxResponseTime = 5000; // Maximum response time in milliseconds
+
+        try {
+            Logger.info(`[TEST] Measuring response time for SyneraAI...`);
+            
+            const startTime = Date.now();
+            const response = await syneraAI.processQuery(performanceQuery);
+            const elapsedTime = Date.now() - startTime;
+
+            expect(response).toBeDefined();
+            expect(typeof response).toBe('string');
+            expect(response.length).toBeGreaterThan(0);
+            expect(elapsedTime).toBeLessThan(maxResponseTime);
+
+            Logger.info(`[TEST] SyneraAI responded in ${elapsedTime}ms`);
+        } catch (error) {
+            Logger.error(`[TEST] SyneraAI exceeded response time limit: ${error}`);
+            throw error;
+        }
+    });
+});
